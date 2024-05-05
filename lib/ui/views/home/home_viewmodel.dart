@@ -8,6 +8,7 @@ import 'package:stacked_services/stacked_services.dart';
 class HomeViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
+  final selectedNavIndex = 0;
 
   String get counterLabel => 'Counter is: $_counter';
 

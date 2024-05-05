@@ -3,6 +3,7 @@ import 'package:hgec_mobile_app/app/app.bottomsheets.dart';
 import 'package:hgec_mobile_app/app/app.dialogs.dart';
 import 'package:hgec_mobile_app/app/app.locator.dart';
 import 'package:hgec_mobile_app/app/app.router.dart';
+import 'package:hgec_mobile_app/ui/common/theme.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 Future<void> main() async {
@@ -19,6 +20,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: theme,
       initialRoute: Routes.startupView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,

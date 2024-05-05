@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-import 'package:hgec_mobile_app/ui/common/app_colors.dart';
 import 'package:hgec_mobile_app/ui/common/ui_helpers.dart';
-
+import 'package:hgec_mobile_app/ui/widgets/common/custom_bottom_navigation_bar/custom_bottom_navigation_bar.dart';
+import 'package:hgec_mobile_app/ui/widgets/common/custom_navigation_rail/custom_navigation_rail.dart';
+import 'package:hgec_mobile_app/ui/widgets/common/reusable_scaffold_with_bottom_nav/reusable_scaffold_with_bottom_nav.dart';
+import 'package:stacked/stacked.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
@@ -14,67 +15,53 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      onPressed: viewModel.showDialog,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      onPressed: viewModel.showBottomSheet,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+    return const ReusableScaffoldWithBottomNav(
+        appBarTitle: 'Home', selectedIndex: 0, widget: Test());
+    // Scaffold(
+    //   appBar: AppBar(
+    //     automaticallyImplyLeading: false,
+    //     title: Text(
+    //       'Home',
+    //       style: Theme.of(context).textTheme.titleLarge,
+    //     ),
+    //   ),
+    //   body: PopScope(
+    //     canPop: false,
+    //     child: SafeArea(
+    //       child: Row(
+    //         children: [
+    //           const CustomNavigationRail(
+    //             selectedIndex: 0,
+    //           ),
+    //           Flexible(
+    //             flex: 2,
+    //             child: Padding(
+    //               padding: const EdgeInsets.symmetric(horizontal: 8),
+    //               child: ListView(
+    //                 children: const [
+    //                   verticalSpaceSmall,
+    //                   SearchBar(),
+    //                   verticalSpaceSmall,
+    //                 ],
+    //               ),
+    //             ),
+    //           ),
+    //           Flexible(
+    //             flex: 2,
+    //             child: Container(
+    //               decoration:
+    //                   BoxDecoration(color: Theme.of(context).colorScheme.error),
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    //   bottomNavigationBar: screenWidth(context) > 600
+    //       ? const SizedBox()
+    //       : CustomBottomNavigationBar(
+    //           selectedIndex: viewModel.selectedNavIndex),
+    // );
   }
 
   @override
@@ -82,4 +69,76 @@ class HomeView extends StackedView<HomeViewModel> {
     BuildContext context,
   ) =>
       HomeViewModel();
+}
+
+class Test extends StatelessWidget {
+  const Test({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Flexible(
+          flex: 2,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: ListView(
+              children: const [
+                verticalSpaceSmall,
+                SearchBar(),
+                verticalSpaceSmall,
+              ],
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 2,
+          child: Container(
+            decoration:
+                BoxDecoration(color: Theme.of(context).colorScheme.error),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SearchBar extends StatelessWidget {
+  const SearchBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 56,
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100), color: Colors.white),
+        padding: const EdgeInsets.fromLTRB(31, 12, 12, 12),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Icon(Icons.search),
+            const SizedBox(
+              width: 23.5,
+            ),
+            Expanded(
+              child: TextField(
+                maxLines: 1,
+                decoration: InputDecoration(
+                    isDense: true,
+                    border: InputBorder.none,
+                    hintText: "Search replies",
+                    hintStyle: Theme.of(context).textTheme.bodyMedium),
+              ),
+            ),
+            const CircleAvatar(
+              backgroundColor: Colors.blue,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
