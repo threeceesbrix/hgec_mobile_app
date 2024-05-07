@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:hgec_mobile_app/ui/common/responsive.dart';
 import 'package:hgec_mobile_app/ui/common/ui_helpers.dart';
 import 'package:hgec_mobile_app/ui/views/login/login_view.form.dart';
 import 'package:hgec_mobile_app/ui/widgets/common/custom_text_field/custom_text_field.dart';
 import 'package:hgec_mobile_app/ui/widgets/common/password_text_field/password_text_field.dart';
+import 'package:hgec_mobile_app/ui/widgets/common/responsive_widget/responsive_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'login_viewmodel.dart';

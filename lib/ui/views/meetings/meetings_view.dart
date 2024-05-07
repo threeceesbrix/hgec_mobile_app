@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:hgec_mobile_app/ui/common/calendar_utils.dart';
+import 'package:hgec_mobile_app/ui/common/enums.dart';
 import 'package:hgec_mobile_app/ui/common/ui_helpers.dart';
-import 'package:hgec_mobile_app/ui/widgets/common/custom_bottom_navigation_bar/custom_bottom_navigation_bar.dart';
-import 'package:hgec_mobile_app/ui/widgets/common/custom_navigation_rail/custom_navigation_rail.dart';
-import 'package:hgec_mobile_app/ui/widgets/common/reusable_scaffold_with_bottom_nav/reusable_scaffold_with_bottom_nav.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 import 'meetings_viewmodel.dart';
 
@@ -16,62 +18,152 @@ class MeetingsView extends StackedView<MeetingsViewModel> {
     MeetingsViewModel viewModel,
     Widget? child,
   ) {
-    return const ReusableScaffoldWithBottomNav(
-        appBarTitle: 'Meetings', selectedIndex: 1, widget: Test());
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     automaticallyImplyLeading: false,
-    //     title: Text(
-    //       "Meetings",
-    //       style: Theme.of(context).textTheme.titleLarge,
-    //     ),
-    //   ),
-    //   backgroundColor: Theme.of(context).colorScheme.background,
-    //   body: PopScope(
-    //     canPop: false,
-    //     child: SafeArea(
-    //       child: Row(
-    //         crossAxisAlignment: CrossAxisAlignment.start,
-    //         children: [
-    //           const CustomNavigationRail(
-    //             selectedIndex: 1,
-    //           ),
-    //           Flexible(
-    //             flex: 2,
-    //             child: Container(
-    //               padding: const EdgeInsets.only(top: 10),
-    //               child: SingleChildScrollView(
-    //                   scrollDirection: Axis.horizontal,
-    //                   child: Row(
-    //                     children: [
-    //                       ...List.generate(
-    //                         100,
-    //                         (index) {
-    //                           return Padding(
-    //                             padding: const EdgeInsets.all(8.0),
-    //                             child: Text("$index"),
-    //                           );
-    //                         },
-    //                       ),
-    //                     ],
-    //                   )),
-    //             ),
-    //           ),
-    //           Flexible(
-    //             flex: 2,
-    //             child: Container(
-    //               decoration: const BoxDecoration(color: Colors.red),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    //   bottomNavigationBar: screenWidth(context) > 600
-    //       ? const SizedBox()
-    //       : CustomBottomNavigationBar(
-    //           selectedIndex: viewModel.selectedNavIndex),
-    // );
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Flexible(
+          flex: 2,
+          child: TableCalendar(
+            availableCalendarFormats: const {CalendarFormat.month: 'Month'},
+            calendarFormat: viewModel.calendarFormat,
+            focusedDay: viewModel.focusedDay,
+            firstDay: kFirstDay,
+            holidayPredicate: (day) {
+              if (day.weekday == 6 || day.weekday == 7) {
+                return true;
+              } else {
+                return false;
+              }
+            },
+            lastDay: kLastDay,
+            onDaySelected: viewModel.onDaySelected,
+            onPageChanged: (focusedDay) {
+              viewModel.focusedDay = focusedDay;
+            },
+            selectedDayPredicate: (day) {
+              return isSameDay(viewModel.selectedDay, day);
+            },
+          ),
+        ),
+        Flexible(
+          flex: 5,
+          child: Container(
+            width: double.maxFinite,
+            padding: const EdgeInsets.only(left: 15, top: 15, right: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Your Meetings',
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                verticalSpaceMedium,
+                SegmentedButton<Calendar>(
+                  style: ButtonStyle(
+                    iconColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Theme.of(context).colorScheme.background;
+                        } else {
+                          return Theme.of(context).colorScheme.primary;
+                        }
+                      },
+                    ),
+                    foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Theme.of(context).colorScheme.background;
+                        } else {
+                          return Theme.of(context).colorScheme.primary;
+                        }
+                      },
+                    ),
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Theme.of(context).colorScheme.primary;
+                        } else {
+                          return Theme.of(context).colorScheme.background;
+                        }
+                      },
+                    ),
+                  ),
+                  segments: const <ButtonSegment<Calendar>>[
+                    ButtonSegment<Calendar>(
+                      value: Calendar.day,
+                      label: Text('Day'),
+                      icon: Icon(Icons.calendar_view_day),
+                    ),
+                    ButtonSegment<Calendar>(
+                      value: Calendar.week,
+                      label: Text('Week'),
+                      icon: Icon(Icons.calendar_view_week),
+                    ),
+                    ButtonSegment<Calendar>(
+                      value: Calendar.month,
+                      label: Text('Month'),
+                      icon: Icon(Icons.calendar_view_month),
+                    ),
+                  ],
+                  selected: <Calendar>{viewModel.calendarView},
+                  onSelectionChanged: (Set<Calendar> newSelection) {
+                    viewModel.calendarView = newSelection.first;
+                    viewModel.notifyListeners();
+                  },
+                ),
+                verticalSpaceMedium,
+                Text(
+                  DateFormat('EEEE').format(viewModel.focusedDay),
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+                // verticalSpaceSmall,
+                Text(
+                  DateFormat('d  MMM').format(viewModel.focusedDay),
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                verticalSpaceSmall,
+                Flexible(
+                  child: ListView(
+                    children: const [
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                      verticalSpaceMedium,
+                      MeetingInfoContainer(),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   @override
@@ -81,41 +173,56 @@ class MeetingsView extends StackedView<MeetingsViewModel> {
       MeetingsViewModel();
 }
 
-class Test extends StatelessWidget {
-  const Test({super.key});
+class MeetingInfoContainer extends StatelessWidget {
+  const MeetingInfoContainer({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Flexible(
-          flex: 2,
-          child: Container(
-            padding: const EdgeInsets.only(top: 10),
-            child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
+    return OrientationBuilder(builder: (context, orientation) {
+      return Container(
+        padding: const EdgeInsets.all(8),
+        height: 100,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black, width: 1),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ...List.generate(
-                      100,
-                      (index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("$index"),
-                        );
-                      },
+                    const Text(
+                      '10:00 am',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      '11:00 am',
+                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ],
-                )),
-          ),
+                ),
+                horizontalSpaceMedium,
+                VerticalDivider(
+                  color: Theme.of(context).colorScheme.primary,
+                  thickness: 2,
+                  width: 2,
+                ),
+                horizontalSpaceMedium,
+                Text(
+                  'Week Launch',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ],
+            ),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
+          ],
         ),
-        Flexible(
-          flex: 2,
-          child: Container(
-            decoration: const BoxDecoration(color: Colors.red),
-          ),
-        ),
-      ],
-    );
+      );
+    });
   }
 }
