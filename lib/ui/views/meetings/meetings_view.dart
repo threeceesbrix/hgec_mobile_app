@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hgec_mobile_app/ui/common/calendar_utils.dart';
 import 'package:hgec_mobile_app/ui/common/enums.dart';
 import 'package:hgec_mobile_app/ui/common/ui_helpers.dart';
@@ -25,6 +24,34 @@ class MeetingsView extends StackedView<MeetingsViewModel> {
           flex: 2,
           child: TableCalendar(
             availableCalendarFormats: const {CalendarFormat.month: 'Month'},
+            calendarBuilders: CalendarBuilders(
+              dowBuilder: (context, day) {
+                if (day.weekday == DateTime.saturday ||
+                    day.weekday == DateTime.sunday) {
+                  final text = DateFormat.E().format(day);
+                  return Center(
+                    child: Text(
+                      text,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  );
+                }
+                return null;
+              },
+              holidayBuilder: (context, day, focusedDay) {
+                if (day.weekday == DateTime.saturday ||
+                    day.weekday == DateTime.sunday) {
+                  final text = day.day;
+                  return Center(
+                    child: Text(
+                      text.toString(),
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  );
+                }
+                return null;
+              },
+            ),
             calendarFormat: viewModel.calendarFormat,
             focusedDay: viewModel.focusedDay,
             firstDay: kFirstDay,
@@ -43,6 +70,7 @@ class MeetingsView extends StackedView<MeetingsViewModel> {
             selectedDayPredicate: (day) {
               return isSameDay(viewModel.selectedDay, day);
             },
+            weekendDays: const [DateTime.saturday, DateTime.sunday],
           ),
         ),
         Flexible(

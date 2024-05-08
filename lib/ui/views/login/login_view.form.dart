@@ -7,6 +7,7 @@
 // ignore_for_file: public_member_api_docs, constant_identifier_names, non_constant_identifier_names,unnecessary_this
 
 import 'package:flutter/material.dart';
+import 'package:hgec_mobile_app/ui/common/validators.dart';
 import 'package:stacked/stacked.dart';
 
 const bool _autoTextFieldValidation = true;
@@ -19,8 +20,8 @@ final Map<String, TextEditingController> _LoginViewTextEditingControllers = {};
 final Map<String, FocusNode> _LoginViewFocusNodes = {};
 
 final Map<String, String? Function(String?)?> _LoginViewTextValidations = {
-  UserNameValueKey: null,
-  PasswordValueKey: null,
+  UserNameValueKey: FormValidators.userNameValidator,
+  PasswordValueKey: FormValidators.passwordValidator,
 };
 
 mixin $LoginView {

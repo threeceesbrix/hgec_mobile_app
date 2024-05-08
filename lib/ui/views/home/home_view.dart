@@ -43,22 +43,34 @@ class HomeView extends StackedView<HomeViewModel> {
               automaticallyImplyLeading: false,
               bottom: const TabBar(tabs: tabs),
             ),
-            body: const PopScope(
+            body: PopScope(
               canPop: false,
               child: SafeArea(
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
-                    children: [
-                      Tab(
-                        text: 'Coming Soon',
-                      ),
-                      MeetingsView(),
-                      Tab(
-                        text: 'Coming Soon',
-                      )
-                    ],
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: viewModel.isBusy
+                        ? const [
+                            Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ]
+                        : [
+                            Tab(
+                              text: viewModel.userInfo!.username,
+                            ),
+                            const MeetingsView(),
+                            const Tab(
+                              text: 'Coming Soon',
+                            )
+                          ],
                   ),
                 ),
               ),
@@ -67,7 +79,7 @@ class HomeView extends StackedView<HomeViewModel> {
                 ? const SizedBox.shrink()
                 : FloatingActionButton(
                     onPressed: () {},
-                    child: Icon(Icons.add),
+                    child: const Icon(Icons.add),
                   ),
           );
         },

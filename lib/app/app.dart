@@ -6,6 +6,10 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:hgec_mobile_app/ui/views/login/login_view.dart';
 import 'package:hgec_mobile_app/ui/views/meetings/meetings_view.dart';
+import 'package:hgec_mobile_app/services/http_service_service.dart';
+import 'package:hgec_mobile_app/services/login_service.dart';
+import 'package:hgec_mobile_app/services/sqlite_service.dart';
+import 'package:hgec_mobile_app/services/home_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -20,7 +24,11 @@ import 'package:hgec_mobile_app/ui/views/meetings/meetings_view.dart';
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
-    // @stacked-service
+    LazySingleton(classType: HttpService),
+    LazySingleton(classType: LoginService),
+    LazySingleton(classType: SqliteService),
+    LazySingleton(classType: HomeService),
+// @stacked-service
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
@@ -30,5 +38,6 @@ import 'package:hgec_mobile_app/ui/views/meetings/meetings_view.dart';
     StackedDialog(classType: InfoAlertDialog),
     // @stacked-dialog
   ],
+  logger: StackedLogger(),
 )
 class App {}

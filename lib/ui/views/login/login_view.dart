@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hgec_mobile_app/ui/common/ui_helpers.dart';
+import 'package:hgec_mobile_app/ui/common/validators.dart';
 import 'package:hgec_mobile_app/ui/views/login/login_view.form.dart';
 import 'package:hgec_mobile_app/ui/widgets/common/custom_text_field/custom_text_field.dart';
 import 'package:hgec_mobile_app/ui/widgets/common/password_text_field/password_text_field.dart';
@@ -8,8 +9,16 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'login_viewmodel.dart';
 
-@FormView(
-    fields: [FormTextField(name: "userName"), FormTextField(name: "password")])
+@FormView(fields: [
+  FormTextField(
+    name: "userName",
+    validator: FormValidators.userNameValidator,
+  ),
+  FormTextField(
+    name: "password",
+    validator: FormValidators.passwordValidator,
+  )
+])
 class LoginView extends StackedView<LoginViewModel> with $LoginView {
   const LoginView({Key? key}) : super(key: key);
 
@@ -32,10 +41,10 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
     );
   }
 
-  @override
-  void onViewModelReady(LoginViewModel viewModel) {
-    syncFormWithViewModel(viewModel);
-  }
+  // @override
+  // void onViewModelReady(LoginViewModel viewModel) {
+  //   syncFormWithViewModel(viewModel);
+  // }
 
   @override
   void onDispose(LoginViewModel viewModel) {
@@ -83,6 +92,7 @@ class TabletView extends StatelessWidget {
             child: Center(
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: orientation == Orientation.landscape
@@ -96,13 +106,31 @@ class TabletView extends StatelessWidget {
                       controller: userNameController,
                       width: screenWidthFraction(dividedBy: 3, context),
                     ),
+                    Visibility(
+                      visible: viewModel.hasUserNameValidationMessage,
+                      child: Text(
+                        viewModel.userNameValidationMessage ?? '',
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    ),
                     verticalSpaceMedium,
                     PasswordTextField(
-                        width: screenWidthFraction(dividedBy: 3, context),
-                        labelText: "Password",
-                        controller: passwordController),
+                      width: screenWidthFraction(dividedBy: 3, context),
+                      labelText: "Password",
+                      controller: passwordController,
+                      visible: viewModel.hasPasswordValidationMessage,
+                      validationMessage: viewModel.passwordValidationMessage,
+                    ),
+                    Visibility(
+                      visible: viewModel.hasPasswordValidationMessage,
+                      child: Text(
+                        viewModel.passwordValidationMessage ?? '',
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    ),
                     verticalSpaceMedium,
                     SizedBox(
+                      height: 50,
                       width: screenWidthFraction(dividedBy: 3, context),
                       child: ElevatedButton(
                         clipBehavior: Clip.hardEdge,
@@ -112,14 +140,35 @@ class TabletView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        onPressed: viewModel.navigateToHomeView,
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 17),
-                        ),
+                        onPressed: () {
+                          viewModel.login(
+                              userName: userNameController.text,
+                              password: passwordController.text);
+                        },
+                        child: viewModel.isBusy
+                            ? const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Loading...',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 17),
+                                  ),
+                                  horizontalSpaceSmall,
+                                  CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              )
+                            : const Text(
+                                'Login',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 17),
+                              ),
                       ),
                     )
                   ],

@@ -2,6 +2,11 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:hgec_mobile_app/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:hgec_mobile_app/services/http_service_service.dart';
+import 'package:hgec_mobile_app/services/login_service.dart';
+
+import 'package:hgec_mobile_app/services/sqlite_service.dart';
+import 'package:hgec_mobile_app/services/home_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -10,13 +15,21 @@ import 'test_helpers.mocks.dart';
   MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
-  // @stacked-mock-spec
+  MockSpec<HttpService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<LoginService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<SqliteService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<HomeService>(onMissingStub: OnMissingStub.returnDefault),
+// @stacked-mock-spec
 ])
 void registerServices() {
   getAndRegisterNavigationService();
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
-  // @stacked-mock-register
+  getAndRegisterHttpServiceService();
+  getAndRegisterLoginService();
+  getAndRegisterSqliteService();
+  getAndRegisterHomeService();
+// @stacked-mock-register
 }
 
 MockNavigationService getAndRegisterNavigationService() {
@@ -69,6 +82,33 @@ MockDialogService getAndRegisterDialogService() {
   return service;
 }
 
+MockHttpService getAndRegisterHttpServiceService() {
+  _removeRegistrationIfExists<HttpService>();
+  final service = MockHttpService();
+  locator.registerSingleton<HttpService>(service);
+  return service;
+}
+
+MockLoginService getAndRegisterLoginService() {
+  _removeRegistrationIfExists<LoginService>();
+  final service = MockLoginService();
+  locator.registerSingleton<LoginService>(service);
+  return service;
+}
+
+MockSqliteService getAndRegisterSqliteService() {
+  _removeRegistrationIfExists<SqliteService>();
+  final service = MockSqliteService();
+  locator.registerSingleton<SqliteService>(service);
+  return service;
+}
+
+MockHomeService getAndRegisterHomeService() {
+  _removeRegistrationIfExists<HomeService>();
+  final service = MockHomeService();
+  locator.registerSingleton<HomeService>(service);
+  return service;
+}
 // @stacked-mock-create
 
 void _removeRegistrationIfExists<T extends Object>() {

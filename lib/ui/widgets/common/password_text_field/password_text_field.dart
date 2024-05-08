@@ -7,11 +7,16 @@ class PasswordTextField extends StackedView<PasswordTextFieldModel> {
   final double width;
   final String labelText;
   final TextEditingController controller;
-  const PasswordTextField(
-      {required this.width,
-      required this.labelText,
-      required this.controller,
-      super.key});
+  final bool? visible;
+  final String? validationMessage;
+  const PasswordTextField({
+    required this.width,
+    required this.labelText,
+    required this.controller,
+    this.visible,
+    this.validationMessage,
+    super.key,
+  });
 
   @override
   Widget builder(
@@ -26,19 +31,25 @@ class PasswordTextField extends StackedView<PasswordTextFieldModel> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: TextFormField(
-        controller: controller,
-        obscureText: viewModel.obscureText,
-        decoration: InputDecoration(
-          hintText: labelText,
-          border: InputBorder.none,
-          suffixIcon: IconButton(
-            icon: Icon(
-              viewModel.obscureText ? Icons.visibility_off : Icons.visibility,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: controller,
+            obscureText: viewModel.obscureText,
+            decoration: InputDecoration(
+              hintText: labelText,
+              border: InputBorder.none,
+              suffixIcon: IconButton(
+                icon: Icon(
+                  viewModel.obscureText
+                      ? Icons.visibility_off
+                      : Icons.visibility,
+                ),
+                onPressed: viewModel.switchObscure,
+              ),
             ),
-            onPressed: viewModel.switchObscure,
           ),
-        ),
+        ],
       ),
     );
   }
