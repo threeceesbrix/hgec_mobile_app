@@ -10,6 +10,7 @@ import 'package:hgec_mobile_app/services/http_service_service.dart';
 import 'package:hgec_mobile_app/services/login_service.dart';
 import 'package:hgec_mobile_app/services/sqlite_service.dart';
 import 'package:hgec_mobile_app/services/home_service.dart';
+import 'package:hgec_mobile_app/ui/views/meetings_add/meetings_add_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -18,6 +19,7 @@ import 'package:hgec_mobile_app/services/home_service.dart';
     MaterialRoute(page: StartupView),
     MaterialRoute(page: LoginView),
     MaterialRoute(page: MeetingsView),
+    MaterialRoute(page: MeetingsAddView),
 // @stacked-route
   ],
   dependencies: [

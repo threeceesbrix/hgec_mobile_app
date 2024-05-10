@@ -92,7 +92,7 @@ class TabletView extends StatelessWidget {
             child: Center(
               child: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: orientation == Orientation.landscape
@@ -105,6 +105,7 @@ class TabletView extends StatelessWidget {
                       labelText: 'Username',
                       controller: userNameController,
                       width: screenWidthFraction(dividedBy: 3, context),
+                      required: true,
                     ),
                     Visibility(
                       visible: viewModel.hasUserNameValidationMessage,
@@ -113,7 +114,7 @@ class TabletView extends StatelessWidget {
                         style: const TextStyle(color: Colors.red),
                       ),
                     ),
-                    verticalSpaceMedium,
+                    verticalSpaceSmall,
                     PasswordTextField(
                       width: screenWidthFraction(dividedBy: 3, context),
                       labelText: "Password",
@@ -128,7 +129,7 @@ class TabletView extends StatelessWidget {
                         style: const TextStyle(color: Colors.red),
                       ),
                     ),
-                    verticalSpaceMedium,
+                    verticalSpaceSmall,
                     SizedBox(
                       height: 50,
                       width: screenWidthFraction(dividedBy: 3, context),

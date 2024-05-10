@@ -1,15 +1,18 @@
 import 'package:hgec_mobile_app/app/app.bottomsheets.dart';
 import 'package:hgec_mobile_app/app/app.dialogs.dart';
 import 'package:hgec_mobile_app/app/app.locator.dart';
+import 'package:hgec_mobile_app/app/app.router.dart';
 import 'package:hgec_mobile_app/models/sqlite/user_info.dart';
 import 'package:hgec_mobile_app/services/home_service.dart';
 import 'package:hgec_mobile_app/ui/common/app_strings.dart';
+import 'package:hgec_mobile_app/ui/views/meetings_add/meetings_add_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class HomeViewModel extends BaseViewModel {
   final _bottomSheetService = locator<BottomSheetService>();
   final _dialogService = locator<DialogService>();
+  final _navigationService = locator<NavigationService>();
   final _homeSerivce = locator<HomeService>();
   SqlUserInfo? userInfo;
 
@@ -24,28 +27,8 @@ class HomeViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  String get counterLabel => 'Counter is: $_counter';
-
-  int _counter = 0;
-
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
-  }
-
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Stacked Rocks!',
-      description: 'Give stacked $_counter stars on Github',
-    );
-  }
-
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: ksHomeBottomSheetTitle,
-      description: ksHomeBottomSheetDescription,
-    );
+  Future<void> navigateToAddMeeting() async {
+    await _navigationService.navigateWithTransition(const MeetingsAddView(),
+        transitionStyle: Transition.fade);
   }
 }

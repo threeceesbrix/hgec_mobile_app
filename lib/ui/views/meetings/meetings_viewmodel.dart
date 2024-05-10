@@ -7,6 +7,7 @@ class MeetingsViewModel extends BaseViewModel {
   CalendarFormat calendarFormat = CalendarFormat.month;
   DateTime focusedDay = DateTime.now();
   DateTime? selectedDay;
+  bool isCalendarVisible = false;
 
   void onDaySelected(DateTime sDay, DateTime fDay) {
     if (!isSameDay(sDay, selectedDay)) {

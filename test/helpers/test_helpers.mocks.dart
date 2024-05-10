@@ -719,10 +719,18 @@ class MockHttpService extends _i1.Mock implements _i8.HttpService {
 /// See the documentation for Mockito's code generation for more information.
 class MockLoginService extends _i1.Mock implements _i9.LoginService {
   @override
-  _i6.Future<Map<String, dynamic>> login() => (super.noSuchMethod(
+  _i6.Future<Map<String, dynamic>> login({
+    required String? userName,
+    required String? password,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #login,
           [],
+          {
+            #userName: userName,
+            #password: password,
+          },
         ),
         returnValue:
             _i6.Future<Map<String, dynamic>>.value(<String, dynamic>{}),

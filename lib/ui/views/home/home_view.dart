@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hgec_mobile_app/ui/views/meetings/meetings_view.dart';
+import 'package:hgec_mobile_app/ui/widgets/common/menubar/menubar.dart';
 import 'package:stacked/stacked.dart';
 import 'home_viewmodel.dart';
 
@@ -33,16 +34,33 @@ class HomeView extends StackedView<HomeViewModel> {
       child: Builder(
         builder: (context) {
           final TabController tabController = DefaultTabController.of(context);
-          tabController.addListener(() async {
-            if (!tabController.indexIsChanging) {
-              viewModel.notifyListeners();
-            }
-          });
+          tabController.addListener(
+            () async {
+              if (!tabController.indexIsChanging) {
+                viewModel.notifyListeners();
+              }
+            },
+          );
           return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
               bottom: const TabBar(tabs: tabs),
+              leading: Builder(
+                builder: (BuildContext context) {
+                  return IconButton(
+                    icon: const Icon(Icons.menu),
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                  );
+                },
+              ),
             ),
+            drawer: viewModel.isBusy
+                ? null
+                : Menubar(
+                    userName: viewModel.userInfo!.username,
+                  ),
             body: PopScope(
               canPop: false,
               child: SafeArea(
@@ -78,7 +96,7 @@ class HomeView extends StackedView<HomeViewModel> {
             floatingActionButton: tabController.index != 1
                 ? const SizedBox.shrink()
                 : FloatingActionButton(
-                    onPressed: () {},
+                    onPressed: viewModel.navigateToAddMeeting,
                     child: const Icon(Icons.add),
                   ),
           );

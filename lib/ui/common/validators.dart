@@ -13,4 +13,11 @@ class FormValidators {
     }
     return null;
   }
+
+  static String? meetingTitleValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Title is reqruired';
+    }
+    return null;
+  }
 }
