@@ -7,6 +7,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart' as _i7;
 import 'package:flutter/material.dart';
+import 'package:hgec_mobile_app/models/meetings/info/meeting_info.dart' as _i8;
 import 'package:hgec_mobile_app/ui/views/home/home_view.dart' as _i2;
 import 'package:hgec_mobile_app/ui/views/login/login_view.dart' as _i4;
 import 'package:hgec_mobile_app/ui/views/meetings/meetings_view.dart' as _i5;
@@ -14,7 +15,7 @@ import 'package:hgec_mobile_app/ui/views/meetings_add/meetings_add_view.dart'
     as _i6;
 import 'package:hgec_mobile_app/ui/views/startup/startup_view.dart' as _i3;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i8;
+import 'package:stacked_services/stacked_services.dart' as _i9;
 
 class Routes {
   static const homeView = '/home-view';
@@ -86,8 +87,12 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i6.MeetingsAddView: (data) {
+      final args = data.getArgs<MeetingsAddViewArguments>(
+        orElse: () => const MeetingsAddViewArguments(),
+      );
       return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i6.MeetingsAddView(),
+        builder: (context) =>
+            _i6.MeetingsAddView(key: args.key, meetingInfo: args.meetingInfo),
         settings: data,
       );
     },
@@ -100,7 +105,34 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i8.NavigationService {
+class MeetingsAddViewArguments {
+  const MeetingsAddViewArguments({
+    this.key,
+    this.meetingInfo,
+  });
+
+  final _i7.Key? key;
+
+  final _i8.MeetingInfo? meetingInfo;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "meetingInfo": "$meetingInfo"}';
+  }
+
+  @override
+  bool operator ==(covariant MeetingsAddViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.meetingInfo == meetingInfo;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ meetingInfo.hashCode;
+  }
+}
+
+extension NavigatorStateExtension on _i9.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -157,14 +189,17 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToMeetingsAddView([
+  Future<dynamic> navigateToMeetingsAddView({
+    _i7.Key? key,
+    _i8.MeetingInfo? meetingInfo,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.meetingsAddView,
+        arguments: MeetingsAddViewArguments(key: key, meetingInfo: meetingInfo),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -227,14 +262,17 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithMeetingsAddView([
+  Future<dynamic> replaceWithMeetingsAddView({
+    _i7.Key? key,
+    _i8.MeetingInfo? meetingInfo,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.meetingsAddView,
+        arguments: MeetingsAddViewArguments(key: key, meetingInfo: meetingInfo),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

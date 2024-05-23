@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hgec_mobile_app/ui/common/calendar_utils.dart';
 import 'package:hgec_mobile_app/ui/common/enums.dart';
 import 'package:hgec_mobile_app/ui/common/ui_helpers.dart';
@@ -18,200 +17,203 @@ class MeetingsView extends StackedView<MeetingsViewModel> {
     MeetingsViewModel viewModel,
     Widget? child,
   ) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Visibility(
-          visible: viewModel.isCalendarVisible,
-          child: Flexible(
-            flex: 2,
-            child: TableCalendar(
-              availableCalendarFormats: const {CalendarFormat.month: 'Month'},
-              calendarBuilders: CalendarBuilders(
-                dowBuilder: (context, day) {
-                  if (day.weekday == DateTime.saturday ||
-                      day.weekday == DateTime.sunday) {
-                    final text = DateFormat.E().format(day);
-                    return Center(
-                      child: Text(
-                        text,
-                        style: const TextStyle(color: Colors.red),
-                      ),
-                    );
-                  }
-                  return null;
-                },
-                holidayBuilder: (context, day, focusedDay) {
-                  if (day.weekday == DateTime.saturday ||
-                      day.weekday == DateTime.sunday) {
-                    final text = day.day;
-                    return Center(
-                      child: Text(
-                        text.toString(),
-                        style: const TextStyle(color: Colors.red),
-                      ),
-                    );
-                  }
-                  return null;
-                },
-              ),
-              calendarFormat: viewModel.calendarFormat,
-              focusedDay: viewModel.focusedDay,
-              firstDay: kFirstDay,
-              holidayPredicate: (day) {
-                if (day.weekday == 6 || day.weekday == 7) {
-                  return true;
-                } else {
-                  return false;
-                }
-              },
-              lastDay: kLastDay,
-              onDaySelected: viewModel.onDaySelected,
-              onPageChanged: (focusedDay) {
-                viewModel.focusedDay = focusedDay;
-              },
-              selectedDayPredicate: (day) {
-                return isSameDay(viewModel.selectedDay, day);
-              },
-              weekendDays: const [DateTime.saturday, DateTime.sunday],
+    return viewModel.isBusy
+        ? const Center(
+            child: Center(
+              child: CircularProgressIndicator(),
             ),
-          ),
-        ),
-        Flexible(
-          flex: 5,
-          child: Container(
-            width: double.maxFinite,
-            padding: const EdgeInsets.only(left: 15, top: 15, right: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Your Meetings',
-                  style: Theme.of(context).textTheme.headlineLarge,
+          )
+        : Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Visibility(
+                visible: viewModel.isCalendarVisible,
+                child: Flexible(
+                  flex: 2,
+                  child: TableCalendar(
+                    availableCalendarFormats: const {
+                      CalendarFormat.month: 'Month'
+                    },
+                    calendarBuilders: CalendarBuilders(
+                      dowBuilder: (context, day) {
+                        if (day.weekday == DateTime.saturday ||
+                            day.weekday == DateTime.sunday) {
+                          final text = DateFormat.E().format(day);
+                          return Center(
+                            child: Text(
+                              text,
+                              style: const TextStyle(color: Colors.red),
+                            ),
+                          );
+                        }
+                        return null;
+                      },
+                      holidayBuilder: (context, day, focusedDay) {
+                        if (day.weekday == DateTime.saturday ||
+                            day.weekday == DateTime.sunday) {
+                          final text = day.day;
+                          return Center(
+                            child: Text(
+                              text.toString(),
+                              style: const TextStyle(color: Colors.red),
+                            ),
+                          );
+                        }
+                        return null;
+                      },
+                    ),
+                    calendarFormat: viewModel.calendarFormat,
+                    focusedDay: viewModel.focusedDay,
+                    firstDay: kFirstDay,
+                    holidayPredicate: (day) {
+                      if (day.weekday == 6 || day.weekday == 7) {
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    },
+                    lastDay: kLastDay,
+                    onDaySelected: viewModel.onDaySelected,
+                    onPageChanged: (focusedDay) {
+                      viewModel.focusedDay = focusedDay;
+                    },
+                    selectedDayPredicate: (day) {
+                      return isSameDay(viewModel.selectedDay, day);
+                    },
+                    weekendDays: const [DateTime.saturday, DateTime.sunday],
+                  ),
                 ),
-                verticalSpaceMedium,
-                Row(
-                  children: [
-                    SegmentedButton<Calendar>(
-                      style: ButtonStyle(
-                        iconColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.selected)) {
-                              return Theme.of(context).colorScheme.background;
-                            } else {
-                              return Theme.of(context).colorScheme.primary;
-                            }
-                          },
-                        ),
-                        foregroundColor:
-                            MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.selected)) {
-                              return Theme.of(context).colorScheme.background;
-                            } else {
-                              return Theme.of(context).colorScheme.primary;
-                            }
-                          },
-                        ),
-                        backgroundColor:
-                            MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.selected)) {
-                              return Theme.of(context).colorScheme.primary;
-                            } else {
-                              return Theme.of(context).colorScheme.background;
-                            }
-                          },
-                        ),
+              ),
+              Flexible(
+                flex: 5,
+                child: Container(
+                  width: double.maxFinite,
+                  padding: const EdgeInsets.only(left: 15, top: 15, right: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Your Meetings',
+                        style: Theme.of(context).textTheme.headlineLarge,
                       ),
-                      segments: const <ButtonSegment<Calendar>>[
-                        ButtonSegment<Calendar>(
-                          value: Calendar.day,
-                          label: Text('Today'),
-                          icon: Icon(Icons.calendar_view_day),
-                        ),
-                        ButtonSegment<Calendar>(
-                          value: Calendar.week,
-                          label: Text('Week'),
-                          icon: Icon(Icons.calendar_view_week),
-                        ),
-                        ButtonSegment<Calendar>(
-                          value: Calendar.month,
-                          label: Text('Month'),
-                          icon: Icon(Icons.calendar_view_month),
-                        ),
-                      ],
-                      selected: <Calendar>{viewModel.calendarView},
-                      onSelectionChanged: (Set<Calendar> newSelection) {
-                        viewModel.calendarView = newSelection.first;
-                        viewModel.notifyListeners();
-                      },
-                    ),
-                    horizontalSpaceMedium,
-                    IconButton(
-                      onPressed: () {
-                        viewModel.isCalendarVisible =
-                            !viewModel.isCalendarVisible;
-                        viewModel.notifyListeners();
-                      },
-                      icon: Icon(Icons.calendar_month),
-                      iconSize: 30,
-                    ),
-                  ],
-                ),
-                verticalSpaceMedium,
-                Text(
-                  DateFormat('EEEE').format(viewModel.focusedDay),
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-                // verticalSpaceSmall,
-                Text(
-                  DateFormat('d  MMM').format(viewModel.focusedDay),
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                verticalSpaceSmall,
-                Flexible(
-                  child: ListView(
-                    children: const [
                       verticalSpaceMedium,
-                      MeetingInfoContainer(),
+                      Row(
+                        children: [
+                          SegmentedButton<Calendar>(
+                            style: ButtonStyle(
+                              iconColor: WidgetStateProperty.resolveWith<Color>(
+                                (Set<WidgetState> states) {
+                                  if (states.contains(WidgetState.selected)) {
+                                    return Theme.of(context)
+                                        .colorScheme
+                                        .surface;
+                                  } else {
+                                    return Theme.of(context)
+                                        .colorScheme
+                                        .primary;
+                                  }
+                                },
+                              ),
+                              foregroundColor:
+                                  WidgetStateProperty.resolveWith<Color>(
+                                (Set<WidgetState> states) {
+                                  if (states.contains(WidgetState.selected)) {
+                                    return Theme.of(context)
+                                        .colorScheme
+                                        .surface;
+                                  } else {
+                                    return Theme.of(context)
+                                        .colorScheme
+                                        .primary;
+                                  }
+                                },
+                              ),
+                              backgroundColor:
+                                  WidgetStateProperty.resolveWith<Color>(
+                                (Set<WidgetState> states) {
+                                  if (states.contains(WidgetState.selected)) {
+                                    return Theme.of(context)
+                                        .colorScheme
+                                        .primary;
+                                  } else {
+                                    return Theme.of(context)
+                                        .colorScheme
+                                        .surface;
+                                  }
+                                },
+                              ),
+                            ),
+                            segments: const <ButtonSegment<Calendar>>[
+                              ButtonSegment<Calendar>(
+                                value: Calendar.day,
+                                label: Text('Today'),
+                                icon: Icon(Icons.calendar_view_day),
+                              ),
+                              ButtonSegment<Calendar>(
+                                value: Calendar.week,
+                                label: Text('Week'),
+                                icon: Icon(Icons.calendar_view_week),
+                              ),
+                              ButtonSegment<Calendar>(
+                                value: Calendar.month,
+                                label: Text('Month'),
+                                icon: Icon(Icons.calendar_view_month),
+                              ),
+                            ],
+                            selected: <Calendar>{viewModel.calendarView},
+                            onSelectionChanged: (Set<Calendar> newSelection) {
+                              viewModel.calendarView = newSelection.first;
+                              viewModel.notifyListeners();
+                            },
+                          ),
+                          horizontalSpaceMedium,
+                          IconButton(
+                            onPressed: () {
+                              viewModel.isCalendarVisible =
+                                  !viewModel.isCalendarVisible;
+                              viewModel.notifyListeners();
+                            },
+                            icon: const Icon(Icons.calendar_month),
+                            iconSize: 30,
+                          ),
+                        ],
+                      ),
                       verticalSpaceMedium,
-                      MeetingInfoContainer(),
-                      verticalSpaceMedium,
-                      MeetingInfoContainer(),
-                      verticalSpaceMedium,
-                      MeetingInfoContainer(),
-                      verticalSpaceMedium,
-                      MeetingInfoContainer(),
-                      verticalSpaceMedium,
-                      MeetingInfoContainer(),
-                      verticalSpaceMedium,
-                      MeetingInfoContainer(),
-                      verticalSpaceMedium,
-                      MeetingInfoContainer(),
-                      verticalSpaceMedium,
-                      MeetingInfoContainer(),
-                      verticalSpaceMedium,
-                      MeetingInfoContainer(),
-                      verticalSpaceMedium,
-                      MeetingInfoContainer(),
-                      verticalSpaceMedium,
-                      MeetingInfoContainer(),
-                      verticalSpaceMedium,
-                      MeetingInfoContainer(),
-                      verticalSpaceMedium,
-                      MeetingInfoContainer(),
-                      verticalSpaceMedium,
-                      MeetingInfoContainer(),
+                      Text(
+                        DateFormat('EEEE').format(viewModel.focusedDay),
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      // verticalSpaceSmall,
+                      Text(
+                        DateFormat('d  MMM').format(viewModel.focusedDay),
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      verticalSpaceSmall,
+                      Flexible(
+                        child: ListView.separated(
+                            itemBuilder: (BuildContext context, int index) {
+                              return MeetingInfoContainer(
+                                meetingTitle:
+                                    viewModel.meetingList[index].meetingTitle,
+                                meetingEndTime:
+                                    viewModel.meetingList[index].meetingEndTime,
+                                meetingStartTime: viewModel
+                                    .meetingList[index].meetingStartTime,
+                                onTap: () => viewModel.navigateToInfoView(
+                                    viewModel.meetingList[index]),
+                              );
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) =>
+                                    verticalSpaceMedium,
+                            itemCount: viewModel.meetingList.length),
+                      ),
                     ],
                   ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
+                ),
+              ),
+            ],
+          );
   }
 
   @override
@@ -222,55 +224,72 @@ class MeetingsView extends StackedView<MeetingsViewModel> {
 }
 
 class MeetingInfoContainer extends StatelessWidget {
+  final TimeOfDay? meetingStartTime;
+  final TimeOfDay? meetingEndTime;
+  final String meetingTitle;
+  final Function()? onTap;
   const MeetingInfoContainer({
+    required this.meetingTitle,
+    this.meetingEndTime,
+    this.meetingStartTime,
+    this.onTap,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(builder: (context, orientation) {
-      return Container(
-        padding: const EdgeInsets.all(8),
-        height: 100,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 1),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
+    return OrientationBuilder(
+      builder: (context, orientation) {
+        return GestureDetector(
+          onTap: onTap,
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            height: 100,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black, width: 1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                Row(
                   children: [
-                    const Text(
-                      '10:00 am',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          _formatTime(meetingStartTime),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          _formatTime(meetingEndTime),
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                      ],
                     ),
+                    horizontalSpaceMedium,
+                    VerticalDivider(
+                      color: Theme.of(context).colorScheme.primary,
+                      thickness: 2,
+                      width: 2,
+                    ),
+                    horizontalSpaceMedium,
                     Text(
-                      '11:00 am',
-                      style: Theme.of(context).textTheme.labelMedium,
+                      meetingTitle,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ],
                 ),
-                horizontalSpaceMedium,
-                VerticalDivider(
-                  color: Theme.of(context).colorScheme.primary,
-                  thickness: 2,
-                  width: 2,
-                ),
-                horizontalSpaceMedium,
-                Text(
-                  'Week Launch',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
               ],
             ),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
-          ],
-        ),
-      );
-    });
+          ),
+        );
+      },
+    );
   }
+}
+
+String _formatTime(TimeOfDay? timeOfDay) {
+  return '${timeOfDay!.hourOfPeriod}:${timeOfDay.minute.toString().padLeft(2, '0')} ${timeOfDay.period == DayPeriod.am ? 'AM' : 'PM'}';
 }

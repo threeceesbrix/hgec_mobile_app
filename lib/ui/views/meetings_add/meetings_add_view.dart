@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:hgec_mobile_app/models/meetings/info/meeting_info.dart';
 import 'package:hgec_mobile_app/ui/common/ui_helpers.dart';
 import 'package:hgec_mobile_app/ui/common/validators.dart';
 import 'package:hgec_mobile_app/ui/views/meetings_add/meetings_add_view.form.dart';
@@ -21,7 +20,8 @@ import 'meetings_add_viewmodel.dart';
 ])
 class MeetingsAddView extends StackedView<MeetingsAddViewModel>
     with $MeetingsAddView {
-  const MeetingsAddView({Key? key}) : super(key: key);
+  final MeetingInfo? meetingInfo;
+  const MeetingsAddView({Key? key, this.meetingInfo}) : super(key: key);
 
   @override
   Widget builder(
@@ -33,7 +33,7 @@ class MeetingsAddView extends StackedView<MeetingsAddViewModel>
       top: false,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Add Meeting'),
+          title: const Text('Add Meeting'),
           automaticallyImplyLeading: false,
           leading: Builder(
             builder: (BuildContext context) {
@@ -47,7 +47,7 @@ class MeetingsAddView extends StackedView<MeetingsAddViewModel>
           ),
         ),
         drawer: const Menubar(userName: 'bsadmin'),
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Column(
@@ -111,8 +111,9 @@ class MeetingsAddView extends StackedView<MeetingsAddViewModel>
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: DropdownButtonFormField(
-                                hint: Text('Project'),
-                                items: [],
+                                borderRadius: BorderRadius.zero,
+                                hint: const Text('Project'),
+                                items: const [],
                                 onChanged: null),
                           ),
                         ),
@@ -132,7 +133,10 @@ class MeetingsAddView extends StackedView<MeetingsAddViewModel>
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: DropdownButtonFormField(
-                              hint: Text('Type'), items: [], onChanged: null),
+                              borderRadius: BorderRadius.zero,
+                              hint: const Text('Type'),
+                              items: const [],
+                              onChanged: null),
                         ),
                         Row(
                           children: [
@@ -205,7 +209,7 @@ class MeetingsAddView extends StackedView<MeetingsAddViewModel>
                         ),
                         CustomTextField(
                           labelText: 'Location',
-                          controller: titleController,
+                          controller: locationController,
                           width:
                               screenWidthFraction(dividedBy: 2, context) * 0.8,
                           required: true,
@@ -215,181 +219,6 @@ class MeetingsAddView extends StackedView<MeetingsAddViewModel>
                   ],
                 ),
               ),
-              // Column(
-              //   children: [
-              //     Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //       children: [
-              //         Flexible(
-              //           child: CustomTextField(
-              //             labelText: 'Title',
-              //             controller: titleController,
-              //             width:
-              //                 screenWidthFraction(dividedBy: 2, context) * 0.8,
-              //             required: true,
-              //           ),
-              //         ),
-              //         Flexible(
-              //           child: Container(
-              //             width:
-              //                 screenWidthFraction(dividedBy: 2, context) * 0.8,
-              //             padding: const EdgeInsets.symmetric(horizontal: 10),
-              //             decoration: BoxDecoration(
-              //               color: Colors.white,
-              //               border: Border.all(color: Colors.black, width: 2),
-              //               borderRadius: BorderRadius.circular(10),
-              //             ),
-              //             child: DropdownButtonFormField(
-              //                 hint: const Text('Type'),
-              //                 items: [],
-              //                 onChanged: null),
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //     verticalSpaceLarge,
-              //     Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //       children: [
-              //         Flexible(
-              //           flex: 1,
-              //           child: Container(
-              //             width:
-              //                 screenWidthFraction(dividedBy: 2, context) * 0.8,
-              //             decoration: BoxDecoration(
-              //               color: Colors.white,
-              //               border: Border.all(color: Colors.black, width: 2),
-              //               borderRadius: BorderRadius.circular(10),
-              //             ),
-              //             child: ListTile(
-              //               visualDensity: VisualDensity.comfortable,
-              //               leading: Text(
-              //                 DateFormat('d-MMM-yyyy')
-              //                     .format(viewModel.selectedDate),
-              //                 style: Theme.of(context).textTheme.bodyLarge,
-              //               ),
-              //               trailing: const Icon(
-              //                 Icons.calendar_month,
-              //                 // size: 30,
-              //               ),
-              //               onTap: () async {
-              //                 viewModel.selectedDate = (await showDatePicker(
-              //                   context: context,
-              //                   firstDate: DateTime(2000),
-              //                   lastDate: DateTime.now(),
-              //                 ))!;
-              //                 viewModel.notifyListeners();
-              //               },
-              //             ),
-              //           ),
-              //         ),
-              //         Flexible(
-              //           child: Row(
-              //             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //             children: [
-              //               Container(
-              //                 width:
-              //                     screenWidthFraction(dividedBy: 5, context) *
-              //                         0.8,
-              //                 decoration: BoxDecoration(
-              //                   color: Colors.white,
-              //                   border:
-              //                       Border.all(color: Colors.black, width: 2),
-              //                   borderRadius: BorderRadius.circular(10),
-              //                 ),
-              //                 child: ListTile(
-              //                   visualDensity: VisualDensity.comfortable,
-              //                   leading: Text(
-              //                     DateFormat('d-MMM-yyyy')
-              //                         .format(viewModel.selectedDate),
-              //                     style: Theme.of(context).textTheme.bodyLarge,
-              //                   ),
-              //                   trailing: const Icon(
-              //                     Icons.access_time,
-              //                     // size: 30,
-              //                   ),
-              //                   onTap: () async {
-              //                     viewModel.selectedDate =
-              //                         (await showDatePicker(
-              //                       context: context,
-              //                       firstDate: DateTime(2000),
-              //                       lastDate: DateTime.now(),
-              //                     ))!;
-              //                     viewModel.notifyListeners();
-              //                   },
-              //                 ),
-              //               ),
-              //               // Spacer(),
-              //               Container(
-              //                 width:
-              //                     screenWidthFraction(dividedBy: 5, context) *
-              //                         0.8,
-              //                 decoration: BoxDecoration(
-              //                   color: Colors.white,
-              //                   border:
-              //                       Border.all(color: Colors.black, width: 2),
-              //                   borderRadius: BorderRadius.circular(10),
-              //                 ),
-              //                 child: ListTile(
-              //                   visualDensity: VisualDensity.comfortable,
-              //                   leading: Text(
-              //                     DateFormat('d-MMM-yyyy')
-              //                         .format(viewModel.selectedDate),
-              //                     style: Theme.of(context).textTheme.bodyLarge,
-              //                   ),
-              //                   trailing: const Icon(
-              //                     Icons.access_time,
-              //                     // size: 30,
-              //                   ),
-              //                   onTap: () async {
-              //                     viewModel.selectedDate =
-              //                         (await showDatePicker(
-              //                       context: context,
-              //                       firstDate: DateTime(2000),
-              //                       lastDate: DateTime.now(),
-              //                     ))!;
-              //                     viewModel.notifyListeners();
-              //                   },
-              //                 ),
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //     verticalSpaceLarge,
-              //     Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //       children: [
-              //         Flexible(
-              //           child: Container(
-              //             width:
-              //                 screenWidthFraction(dividedBy: 2, context) * 0.8,
-              //             padding: const EdgeInsets.symmetric(horizontal: 10),
-              //             decoration: BoxDecoration(
-              //               color: Colors.white,
-              //               border: Border.all(color: Colors.black, width: 2),
-              //               borderRadius: BorderRadius.circular(10),
-              //             ),
-              //             child: DropdownButtonFormField(
-              //                 hint: Text('Project'),
-              //                 items: [],
-              //                 onChanged: null),
-              //           ),
-              //         ),
-              //         Flexible(
-              //           child: CustomTextField(
-              //             labelText: 'Location',
-              //             controller: locationController,
-              //             width:
-              //                 screenWidthFraction(dividedBy: 2, context) * 0.8,
-              //             required: false,
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ],
-              // ),
               verticalSpaceSmall,
               Expanded(
                 child: DefaultTabController(
@@ -423,7 +252,8 @@ class MeetingsAddView extends StackedView<MeetingsAddViewModel>
                             child: TabBarView(
                               children: [
                                 Container(
-                                  decoration: BoxDecoration(color: Colors.red),
+                                  decoration:
+                                      const BoxDecoration(color: Colors.red),
                                 ),
                                 SingleChildScrollView(
                                   scrollDirection: Axis.vertical,
@@ -702,5 +532,12 @@ class MeetingsAddView extends StackedView<MeetingsAddViewModel>
   MeetingsAddViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      MeetingsAddViewModel();
+      MeetingsAddViewModel(meetingInfo: meetingInfo);
+
+  @override
+  void onViewModelReady(MeetingsAddViewModel viewModel) {
+    titleController.text = viewModel.meetingInfo?.meetingTitle ?? '';
+    locationController.text = viewModel.meetingInfo?.meetingLocation ?? '';
+    syncFormWithViewModel(viewModel);
+  }
 }

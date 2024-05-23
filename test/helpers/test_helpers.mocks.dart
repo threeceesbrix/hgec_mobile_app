@@ -11,6 +11,7 @@ import 'package:hgec_mobile_app/models/sqlite/user_info.dart' as _i11;
 import 'package:hgec_mobile_app/services/home_service.dart' as _i12;
 import 'package:hgec_mobile_app/services/http_service_service.dart' as _i8;
 import 'package:hgec_mobile_app/services/login_service.dart' as _i9;
+import 'package:hgec_mobile_app/services/meeting_service.dart' as _i13;
 import 'package:hgec_mobile_app/services/sqlite_service.dart' as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i4;
@@ -884,4 +885,21 @@ class MockHomeService extends _i1.Mock implements _i12.HomeService {
         returnValue: _i6.Future<_i11.SqlUserInfo?>.value(),
         returnValueForMissingStub: _i6.Future<_i11.SqlUserInfo?>.value(),
       ) as _i6.Future<_i11.SqlUserInfo?>);
+}
+
+/// A class which mocks [MeetingService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMeetingService extends _i1.Mock implements _i13.MeetingService {
+  @override
+  _i6.Future<Map<String, dynamic>> meetingListGet() => (super.noSuchMethod(
+        Invocation.method(
+          #meetingListGet,
+          [],
+        ),
+        returnValue:
+            _i6.Future<Map<String, dynamic>>.value(<String, dynamic>{}),
+        returnValueForMissingStub:
+            _i6.Future<Map<String, dynamic>>.value(<String, dynamic>{}),
+      ) as _i6.Future<Map<String, dynamic>>);
 }

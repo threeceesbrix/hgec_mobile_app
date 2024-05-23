@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hgec_mobile_app/app/app.bottomsheets.dart';
 import 'package:hgec_mobile_app/app/app.dialogs.dart';
 import 'package:hgec_mobile_app/app/app.locator.dart';
@@ -13,6 +14,8 @@ Future<void> main() async {
   setupDialogUi();
   setupBottomSheetUi();
   await SqliteService.instance.db;
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.landscapeRight, DeviceOrientation.landscapeLeft]);
   runApp(const MainApp());
 }
 

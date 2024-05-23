@@ -14,6 +14,7 @@ import 'package:stacked_shared/stacked_shared.dart';
 import '../services/home_service.dart';
 import '../services/http_service_service.dart';
 import '../services/login_service.dart';
+import '../services/meeting_service.dart';
 import '../services/sqlite_service.dart';
 
 final locator = StackedLocator.instance;
@@ -34,4 +35,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => LoginService());
   locator.registerLazySingleton(() => SqliteService());
   locator.registerLazySingleton(() => HomeService());
+  locator.registerLazySingleton(() => MeetingService());
 }

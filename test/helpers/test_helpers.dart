@@ -7,6 +7,7 @@ import 'package:hgec_mobile_app/services/login_service.dart';
 
 import 'package:hgec_mobile_app/services/sqlite_service.dart';
 import 'package:hgec_mobile_app/services/home_service.dart';
+import 'package:hgec_mobile_app/services/meeting_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -19,6 +20,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<LoginService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<SqliteService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<HomeService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<MeetingService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -29,6 +31,7 @@ void registerServices() {
   getAndRegisterLoginService();
   getAndRegisterSqliteService();
   getAndRegisterHomeService();
+  getAndRegisterMeetingService();
 // @stacked-mock-register
 }
 
@@ -107,6 +110,13 @@ MockHomeService getAndRegisterHomeService() {
   _removeRegistrationIfExists<HomeService>();
   final service = MockHomeService();
   locator.registerSingleton<HomeService>(service);
+  return service;
+}
+
+MockMeetingService getAndRegisterMeetingService() {
+  _removeRegistrationIfExists<MeetingService>();
+  final service = MockMeetingService();
+  locator.registerSingleton<MeetingService>(service);
   return service;
 }
 // @stacked-mock-create

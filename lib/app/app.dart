@@ -11,6 +11,7 @@ import 'package:hgec_mobile_app/services/login_service.dart';
 import 'package:hgec_mobile_app/services/sqlite_service.dart';
 import 'package:hgec_mobile_app/services/home_service.dart';
 import 'package:hgec_mobile_app/ui/views/meetings_add/meetings_add_view.dart';
+import 'package:hgec_mobile_app/services/meeting_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -30,6 +31,7 @@ import 'package:hgec_mobile_app/ui/views/meetings_add/meetings_add_view.dart';
     LazySingleton(classType: LoginService),
     LazySingleton(classType: SqliteService),
     LazySingleton(classType: HomeService),
+    LazySingleton(classType: MeetingService),
 // @stacked-service
   ],
   bottomsheets: [
