@@ -219,261 +219,240 @@ class MeetingsAddView extends StackedView<MeetingsAddViewModel>
                   ],
                 ),
               ),
-              verticalSpaceSmall,
-              Expanded(
-                child: DefaultTabController(
-                  length: 2,
-                  child: Builder(
-                    builder: (context) {
-                      final TabController tabController =
-                          DefaultTabController.of(context);
-                      tabController.addListener(
-                        () async {
-                          if (!tabController.indexIsChanging) {
-                            viewModel.notifyListeners();
-                          }
-                        },
-                      );
-                      return Column(
-                        children: [
-                          const TabBar(
-                            tabAlignment: TabAlignment.start,
-                            isScrollable: true,
-                            tabs: [
-                              Tab(
-                                text: 'Agenda',
-                              ),
-                              Tab(
-                                text: 'Participants',
-                              ),
-                            ],
-                          ),
-                          Expanded(
-                            child: TabBarView(
-                              children: [
-                                Container(
-                                  decoration:
-                                      const BoxDecoration(color: Colors.red),
-                                ),
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.vertical,
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: DataTable(
-                                      border:
-                                          TableBorder.all(color: Colors.black),
-                                      columns: const <DataColumn>[
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'SL.No',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'Name',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'Designation',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'Company Name',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'Email',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'Mobile No',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'Attended',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'Actions',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                      rows: const <DataRow>[
-                                        DataRow(
-                                          cells: <DataCell>[
-                                            DataCell(Text('1')),
-                                            DataCell(Text('Shalikh')),
-                                            DataCell(Text('Developer')),
-                                            DataCell(Text('Gitbitz')),
-                                            DataCell(Text(
-                                                'shalikhshab00@gmail.com')),
-                                            DataCell(Text('9995967046')),
-                                            DataCell(Text('Yes')),
-                                            DataCell(IconButton(
-                                                onPressed: null,
-                                                icon: Icon(Icons.delete))),
-                                          ],
-                                        ),
-                                        DataRow(
-                                          cells: <DataCell>[
-                                            DataCell(Text('1')),
-                                            DataCell(Text('Shalikh')),
-                                            DataCell(Text('Developer')),
-                                            DataCell(Text('Gitbitz')),
-                                            DataCell(Text(
-                                                'shalikhshab00@gmail.com')),
-                                            DataCell(Text('9995967046')),
-                                            DataCell(Text('Yes')),
-                                            DataCell(IconButton(
-                                                onPressed: null,
-                                                icon: Icon(Icons.delete))),
-                                          ],
-                                        ),
-                                        DataRow(
-                                          cells: <DataCell>[
-                                            DataCell(Text('1')),
-                                            DataCell(Text('Shalikh')),
-                                            DataCell(Text('Developer')),
-                                            DataCell(Text('Gitbitz')),
-                                            DataCell(Text(
-                                                'shalikhshab00@gmail.com')),
-                                            DataCell(Text('9995967046')),
-                                            DataCell(Text('Yes')),
-                                            DataCell(IconButton(
-                                                onPressed: null,
-                                                icon: Icon(Icons.delete))),
-                                          ],
-                                        ),
-                                        DataRow(
-                                          cells: <DataCell>[
-                                            DataCell(Text('1')),
-                                            DataCell(Text('Shalikh')),
-                                            DataCell(Text('Developer')),
-                                            DataCell(Text('Gitbitz')),
-                                            DataCell(Text(
-                                                'shalikhshab00@gmail.com')),
-                                            DataCell(Text('9995967046')),
-                                            DataCell(Text('Yes')),
-                                            DataCell(IconButton(
-                                                onPressed: null,
-                                                icon: Icon(Icons.delete))),
-                                          ],
-                                        ),
-                                        DataRow(
-                                          cells: <DataCell>[
-                                            DataCell(Text('1')),
-                                            DataCell(Text('Shalikh')),
-                                            DataCell(Text('Developer')),
-                                            DataCell(Text('Gitbitz')),
-                                            DataCell(Text(
-                                                'shalikhshab00@gmail.com')),
-                                            DataCell(Text('9995967046')),
-                                            DataCell(Text('Yes')),
-                                            DataCell(IconButton(
-                                                onPressed: null,
-                                                icon: Icon(Icons.delete))),
-                                          ],
-                                        ),
-                                        DataRow(
-                                          cells: <DataCell>[
-                                            DataCell(Text('1')),
-                                            DataCell(Text('Shalikh')),
-                                            DataCell(Text('Developer')),
-                                            DataCell(Text('Gitbitz')),
-                                            DataCell(Text(
-                                                'shalikhssldfjlksdjflksdajlkfjhab00@gmail.com')),
-                                            DataCell(Text('9995967046')),
-                                            DataCell(Text('Yes')),
-                                            DataCell(IconButton(
-                                                onPressed: null,
-                                                icon: Icon(Icons.delete))),
-                                          ],
-                                        ),
-                                        DataRow(
-                                          cells: <DataCell>[
-                                            DataCell(Text('1')),
-                                            DataCell(Text('Shalikh')),
-                                            DataCell(Text('Developer')),
-                                            DataCell(Text('Gitbitz')),
-                                            DataCell(Text(
-                                                'shalikhshab00@gmail.com')),
-                                            DataCell(Text('9995967046')),
-                                            DataCell(Text('Yes')),
-                                            DataCell(IconButton(
-                                                onPressed: null,
-                                                icon: Icon(Icons.delete))),
-                                          ],
-                                        ),
-
-                                        // DataRow(
-                                        //   cells: <DataCell>[
-                                        //     DataCell(Text('Janine')),
-                                        //     DataCell(Text('43')),
-                                        //     DataCell(Text('Professor')),
-                                        //   ],
-                                        // ),
-                                        // DataRow(
-                                        //   cells: <DataCell>[
-                                        //     DataCell(Text('William')),
-                                        //     DataCell(Text('27')),
-                                        //     DataCell(Text('Associate Professor')),
-                                        //   ],
-                                        // ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
+              // verticalSpaceSmall,
               // Expanded(
-              //   child: Container(
-              //     width: screenWidth(context) * 0.87,
-              //     decoration: BoxDecoration(color: Colors.red),
+              //   child: DefaultTabController(
+              //     length: 2,
+              //     child: Builder(
+              //       builder: (context) {
+              //         final TabController tabController =
+              //             DefaultTabController.of(context);
+              //         tabController.addListener(
+              //           () async {
+              //             if (!tabController.indexIsChanging) {
+              //               viewModel.notifyListeners();
+              //             }
+              //           },
+              //         );
+              //         return Column(
+              //           children: [
+              //             const TabBar(
+              //               tabAlignment: TabAlignment.start,
+              //               isScrollable: true,
+              //               tabs: [
+              //                 Tab(
+              //                   text: 'Agenda',
+              //                 ),
+              //                 Tab(
+              //                   text: 'Participants',
+              //                 ),
+              //               ],
+              //             ),
+              //             Expanded(
+              //               child: TabBarView(
+              //                 children: [
+              //                   Container(
+              //                     decoration:
+              //                         const BoxDecoration(color: Colors.red),
+              //                   ),
+              //                   SingleChildScrollView(
+              //                     scrollDirection: Axis.vertical,
+              //                     child: SingleChildScrollView(
+              //                       scrollDirection: Axis.horizontal,
+              //                       child: DataTable(
+              //                         border:
+              //                             TableBorder.all(color: Colors.black),
+              //                         columns: const <DataColumn>[
+              //                           DataColumn(
+              //                             label: Expanded(
+              //                               child: Text(
+              //                                 'SL.No',
+              //                                 style: TextStyle(
+              //                                     fontStyle: FontStyle.italic),
+              //                               ),
+              //                             ),
+              //                           ),
+              //                           DataColumn(
+              //                             label: Expanded(
+              //                               child: Text(
+              //                                 'Name',
+              //                                 style: TextStyle(
+              //                                     fontStyle: FontStyle.italic),
+              //                               ),
+              //                             ),
+              //                           ),
+              //                           DataColumn(
+              //                             label: Expanded(
+              //                               child: Text(
+              //                                 'Designation',
+              //                                 style: TextStyle(
+              //                                     fontStyle: FontStyle.italic),
+              //                               ),
+              //                             ),
+              //                           ),
+              //                           DataColumn(
+              //                             label: Expanded(
+              //                               child: Text(
+              //                                 'Company Name',
+              //                                 style: TextStyle(
+              //                                     fontStyle: FontStyle.italic),
+              //                               ),
+              //                             ),
+              //                           ),
+              //                           DataColumn(
+              //                             label: Expanded(
+              //                               child: Text(
+              //                                 'Email',
+              //                                 style: TextStyle(
+              //                                     fontStyle: FontStyle.italic),
+              //                               ),
+              //                             ),
+              //                           ),
+              //                           DataColumn(
+              //                             label: Expanded(
+              //                               child: Text(
+              //                                 'Mobile No',
+              //                                 style: TextStyle(
+              //                                     fontStyle: FontStyle.italic),
+              //                               ),
+              //                             ),
+              //                           ),
+              //                           DataColumn(
+              //                             label: Expanded(
+              //                               child: Text(
+              //                                 'Attended',
+              //                                 style: TextStyle(
+              //                                     fontStyle: FontStyle.italic),
+              //                               ),
+              //                             ),
+              //                           ),
+              //                           DataColumn(
+              //                             label: Expanded(
+              //                               child: Text(
+              //                                 'Actions',
+              //                                 style: TextStyle(
+              //                                     fontStyle: FontStyle.italic),
+              //                               ),
+              //                             ),
+              //                           ),
+              //                         ],
+              //                         rows: const <DataRow>[
+              //                           DataRow(
+              //                             cells: <DataCell>[
+              //                               DataCell(Text('1')),
+              //                               DataCell(Text('Shalikh')),
+              //                               DataCell(Text('Developer')),
+              //                               DataCell(Text('Gitbitz')),
+              //                               DataCell(Text(
+              //                                   'shalikhshab00@gmail.com')),
+              //                               DataCell(Text('9995967046')),
+              //                               DataCell(Text('Yes')),
+              //                               DataCell(IconButton(
+              //                                   onPressed: null,
+              //                                   icon: Icon(Icons.delete))),
+              //                             ],
+              //                           ),
+              //                           DataRow(
+              //                             cells: <DataCell>[
+              //                               DataCell(Text('1')),
+              //                               DataCell(Text('Shalikh')),
+              //                               DataCell(Text('Developer')),
+              //                               DataCell(Text('Gitbitz')),
+              //                               DataCell(Text(
+              //                                   'shalikhshab00@gmail.com')),
+              //                               DataCell(Text('9995967046')),
+              //                               DataCell(Text('Yes')),
+              //                               DataCell(IconButton(
+              //                                   onPressed: null,
+              //                                   icon: Icon(Icons.delete))),
+              //                             ],
+              //                           ),
+              //                           DataRow(
+              //                             cells: <DataCell>[
+              //                               DataCell(Text('1')),
+              //                               DataCell(Text('Shalikh')),
+              //                               DataCell(Text('Developer')),
+              //                               DataCell(Text('Gitbitz')),
+              //                               DataCell(Text(
+              //                                   'shalikhshab00@gmail.com')),
+              //                               DataCell(Text('9995967046')),
+              //                               DataCell(Text('Yes')),
+              //                               DataCell(IconButton(
+              //                                   onPressed: null,
+              //                                   icon: Icon(Icons.delete))),
+              //                             ],
+              //                           ),
+              //                           DataRow(
+              //                             cells: <DataCell>[
+              //                               DataCell(Text('1')),
+              //                               DataCell(Text('Shalikh')),
+              //                               DataCell(Text('Developer')),
+              //                               DataCell(Text('Gitbitz')),
+              //                               DataCell(Text(
+              //                                   'shalikhshab00@gmail.com')),
+              //                               DataCell(Text('9995967046')),
+              //                               DataCell(Text('Yes')),
+              //                               DataCell(IconButton(
+              //                                   onPressed: null,
+              //                                   icon: Icon(Icons.delete))),
+              //                             ],
+              //                           ),
+              //                           DataRow(
+              //                             cells: <DataCell>[
+              //                               DataCell(Text('1')),
+              //                               DataCell(Text('Shalikh')),
+              //                               DataCell(Text('Developer')),
+              //                               DataCell(Text('Gitbitz')),
+              //                               DataCell(Text(
+              //                                   'shalikhshab00@gmail.com')),
+              //                               DataCell(Text('9995967046')),
+              //                               DataCell(Text('Yes')),
+              //                               DataCell(IconButton(
+              //                                   onPressed: null,
+              //                                   icon: Icon(Icons.delete))),
+              //                             ],
+              //                           ),
+              //                           DataRow(
+              //                             cells: <DataCell>[
+              //                               DataCell(Text('1')),
+              //                               DataCell(Text('Shalikh')),
+              //                               DataCell(Text('Developer')),
+              //                               DataCell(Text('Gitbitz')),
+              //                               DataCell(Text(
+              //                                   'shalikhssldfjlksdjflksdajlkfjhab00@gmail.com')),
+              //                               DataCell(Text('9995967046')),
+              //                               DataCell(Text('Yes')),
+              //                               DataCell(IconButton(
+              //                                   onPressed: null,
+              //                                   icon: Icon(Icons.delete))),
+              //                             ],
+              //                           ),
+              //                           DataRow(
+              //                             cells: <DataCell>[
+              //                               DataCell(Text('1')),
+              //                               DataCell(Text('Shalikh')),
+              //                               DataCell(Text('Developer')),
+              //                               DataCell(Text('Gitbitz')),
+              //                               DataCell(Text(
+              //                                   'shalikhshab00@gmail.com')),
+              //                               DataCell(Text('9995967046')),
+              //                               DataCell(Text('Yes')),
+              //                               DataCell(IconButton(
+              //                                   onPressed: null,
+              //                                   icon: Icon(Icons.delete))),
+              //                             ],
+              //                           ),
+              //                         ],
+              //                       ),
+              //                     ),
+              //                   )
+              //                 ],
+              //               ),
+              //             ),
+              //           ],
+              //         );
+              //       },
+              //     ),
               //   ),
               // ),
             ],

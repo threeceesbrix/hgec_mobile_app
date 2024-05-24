@@ -46,7 +46,7 @@ class HttpService {
                   'The connection has timed out, Please try again!');
             },
           );
-          log.v('postRequest - API response : $resp');
+          log.v('postRequest - API response : ${resp.body}');
 
           response = json.decode(resp.body);
           if (response["statusCode"] == 503) {

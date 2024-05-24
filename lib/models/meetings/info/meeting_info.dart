@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hgec_mobile_app/models/meetings/agenda/meeting_agenda.dart';
 import 'package:hgec_mobile_app/models/meetings/attendee/meeting_attendee.dart';
 import 'package:hgec_mobile_app/models/meetings/mom/meeting_mom.dart';
-import 'package:hgec_mobile_app/ui/common/time_convert.dart';
+import 'package:hgec_mobile_app/ui/common/time_utils.dart';
 
 part 'meeting_info.freezed.dart';
 part 'meeting_info.g.dart';
