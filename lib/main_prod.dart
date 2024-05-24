@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:hgec_mobile_app/app/app.bottomsheets.dart';
 import 'package:hgec_mobile_app/app/app.dialogs.dart';
 import 'package:hgec_mobile_app/app/app.locator.dart';
-import 'package:hgec_mobile_app/app/app.router.dart';
+import 'package:hgec_mobile_app/global.dart';
+import 'package:hgec_mobile_app/main_app.dart';
 import 'package:hgec_mobile_app/services/sqlite_service.dart';
-import 'package:hgec_mobile_app/ui/common/theme.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 Future<void> main() async {
+  Global.baseURL = 'prod';
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
   setupDialogUi();
@@ -17,22 +17,4 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.landscapeRight, DeviceOrientation.landscapeLeft]);
   runApp(const MainApp());
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: theme,
-      initialRoute: Routes.startupView,
-      onGenerateRoute: StackedRouter().onGenerateRoute,
-      navigatorKey: StackedService.navigatorKey,
-      navigatorObservers: [
-        StackedService.routeObserver,
-      ],
-    );
-  }
 }

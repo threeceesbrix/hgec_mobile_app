@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hgec_mobile_app/global.dart';
 import 'package:hgec_mobile_app/ui/common/ui_helpers.dart';
 import 'package:hgec_mobile_app/ui/common/validators.dart';
 import 'package:hgec_mobile_app/ui/views/login/login_view.form.dart';
@@ -102,7 +103,7 @@ class TabletView extends StatelessWidget {
                       child: Image.asset('assets/hge_white.png'),
                     ),
                     CustomTextField(
-                      labelText: 'Username',
+                      labelText: Global.baseURL,
                       controller: userNameController,
                       width: screenWidthFraction(dividedBy: 3, context),
                       required: true,
