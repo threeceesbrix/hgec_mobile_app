@@ -7,7 +7,7 @@ import 'dart:async' as _i6;
 import 'dart:ui' as _i7;
 
 import 'package:flutter/material.dart' as _i5;
-import 'package:hgec_mobile_app/models/sqlite/user_info.dart' as _i11;
+import 'package:hgec_mobile_app/models/sqlite/userInfo/user_info.dart' as _i11;
 import 'package:hgec_mobile_app/services/home_service.dart' as _i12;
 import 'package:hgec_mobile_app/services/http_service_service.dart' as _i8;
 import 'package:hgec_mobile_app/services/login_service.dart' as _i9;
@@ -895,6 +895,18 @@ class MockMeetingService extends _i1.Mock implements _i13.MeetingService {
   _i6.Future<Map<String, dynamic>> meetingListGet() => (super.noSuchMethod(
         Invocation.method(
           #meetingListGet,
+          [],
+        ),
+        returnValue:
+            _i6.Future<Map<String, dynamic>>.value(<String, dynamic>{}),
+        returnValueForMissingStub:
+            _i6.Future<Map<String, dynamic>>.value(<String, dynamic>{}),
+      ) as _i6.Future<Map<String, dynamic>>);
+
+  @override
+  _i6.Future<Map<String, dynamic>> meetingTypeGet() => (super.noSuchMethod(
+        Invocation.method(
+          #meetingTypeGet,
           [],
         ),
         returnValue:

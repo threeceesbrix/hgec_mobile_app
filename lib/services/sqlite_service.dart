@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:hgec_mobile_app/models/sqlite/user_info.dart';
+import 'package:hgec_mobile_app/models/sqlite/userInfo/user_info.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -18,7 +18,7 @@ class SqliteService {
   static const String dbName = 'hgec_db.sqlite';
   static const int dbVersion = 1;
 
-  SqliteService(); //Private constructor to prevent instantiation
+  SqliteService();
 
   static final SqliteService instance = SqliteService();
 
@@ -79,7 +79,7 @@ class SqliteService {
   Future<SqlUserInfo?> getUserInfo(int id) async {
     SqlUserInfo? userInfo;
     try {
-      List<Map> maps = await database!.query(userInfoTable,
+      List<Map<String, dynamic>> maps = await database!.query(userInfoTable,
           columns: [
             colId,
             colUserId,

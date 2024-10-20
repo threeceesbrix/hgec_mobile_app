@@ -11,19 +11,19 @@ class LoginViewModel extends FormViewModel {
   final _loginService = locator<LoginService>();
   final _dialogService = locator<DialogService>();
 
-  // @override
-  // void setFormStatus() {
-  //   log.i('Set form Status with data: $formValueMap');
+  @override
+  void setFormStatus() {
+    log.i('Set form Status with data: $formValueMap');
 
-  //   // Set a validation message for the entire form
-  //   if (hasPasswordValidationMessage || hasUserNameValidationMessage) {
-  //     setValidationMessage('Error in the form,adsf please check again');
-  //   }
-  // }
-
-  Future<void> navigateToHomeView() async {
-    await _navigationService.navigateToHomeView();
+    // Set a validation message for the entire form
+    if (hasPasswordValidationMessage || hasUserNameValidationMessage) {
+      setValidationMessage('Error in the form,adsf please check again');
+    }
   }
+
+  // Future<void> navigateToHomeView() async {
+  //   await _navigationService.navigateToHomeView();
+  // }
 
   Future<void> login({String? userName, String? password}) async {
     validateForm();
@@ -38,8 +38,6 @@ class LoginViewModel extends FormViewModel {
       } else {
         await _navigationService.navigateToHomeView();
       }
-
-      // await _navigationService.navigateToHomeView();
     }
   }
 }

@@ -16,7 +16,7 @@ class HttpService {
     int retryCount = 0;
     try {
       log.d('postRequest - started');
-      String endPoint = 'http://192.168.1.6:3001';
+      String endPoint = 'http://172.20.10.2:3001';
       String urlPath = urlPathConfig[requestName] ?? '';
 
       Map<String, String> headers = {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hgec_mobile_app/ui/common/calendar_utils.dart';
 import 'package:hgec_mobile_app/ui/common/enums.dart';
+import 'package:hgec_mobile_app/ui/common/time_utils.dart';
 import 'package:hgec_mobile_app/ui/common/ui_helpers.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
@@ -258,11 +259,11 @@ class MeetingInfoContainer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          _formatTime(meetingStartTime),
+                          formatTime(meetingStartTime),
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          _formatTime(meetingEndTime),
+                          formatTime(meetingEndTime),
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                       ],
@@ -288,8 +289,4 @@ class MeetingInfoContainer extends StatelessWidget {
       },
     );
   }
-}
-
-String _formatTime(TimeOfDay? timeOfDay) {
-  return '${timeOfDay!.hourOfPeriod}:${timeOfDay.minute.toString().padLeft(2, '0')} ${timeOfDay.period == DayPeriod.am ? 'AM' : 'PM'}';
 }

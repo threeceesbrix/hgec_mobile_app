@@ -1,5 +1,5 @@
 import 'package:hgec_mobile_app/app/app.locator.dart';
-import 'package:hgec_mobile_app/models/sqlite/user_info.dart';
+import 'package:hgec_mobile_app/models/sqlite/userInfo/user_info.dart';
 import 'package:hgec_mobile_app/services/home_service.dart';
 import 'package:hgec_mobile_app/ui/views/meetings_add/meetings_add_view.dart';
 import 'package:stacked/stacked.dart';

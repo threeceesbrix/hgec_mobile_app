@@ -31,8 +31,12 @@ mixin _$MeetingAgenda {
   @JsonKey(name: 'created_user_id')
   int get createdUserId => throw _privateConstructorUsedError;
 
+  /// Serializes this MeetingAgenda to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MeetingAgenda
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MeetingAgendaCopyWith<MeetingAgenda> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -61,6 +65,8 @@ class _$MeetingAgendaCopyWithImpl<$Res, $Val extends MeetingAgenda>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MeetingAgenda
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -119,6 +125,8 @@ class __$$MeetingAgendaImplCopyWithImpl<$Res>
       _$MeetingAgendaImpl _value, $Res Function(_$MeetingAgendaImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MeetingAgenda
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -204,12 +212,14 @@ class _$MeetingAgendaImpl implements _MeetingAgenda {
                 other.createdUserId == createdUserId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, meetingAgendaId, meetingId,
       meetingAgenda, createdDate, createdUserId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MeetingAgenda
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MeetingAgendaImplCopyWith<_$MeetingAgendaImpl> get copyWith =>
@@ -250,8 +260,11 @@ abstract class _MeetingAgenda implements MeetingAgenda {
   @override
   @JsonKey(name: 'created_user_id')
   int get createdUserId;
+
+  /// Create a copy of MeetingAgenda
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MeetingAgendaImplCopyWith<_$MeetingAgendaImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

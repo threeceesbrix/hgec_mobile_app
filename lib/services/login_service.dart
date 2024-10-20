@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:hgec_mobile_app/app/app.locator.dart';
 import 'package:hgec_mobile_app/app/app.logger.dart';
-import 'package:hgec_mobile_app/models/sqlite/user_info.dart';
+import 'package:hgec_mobile_app/models/sqlite/userInfo/user_info.dart';
 import 'package:hgec_mobile_app/services/http_service_service.dart';
 import 'package:hgec_mobile_app/services/sqlite_service.dart';
 

@@ -55,8 +55,12 @@ mixin _$MeetingInfo {
   @JsonKey(name: 'momList')
   List<MeetingMOM>? get momList => throw _privateConstructorUsedError;
 
+  /// Serializes this MeetingInfo to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MeetingInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MeetingInfoCopyWith<MeetingInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -102,6 +106,8 @@ class _$MeetingInfoCopyWithImpl<$Res, $Val extends MeetingInfo>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MeetingInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -232,6 +238,8 @@ class __$$MeetingInfoImplCopyWithImpl<$Res>
       _$MeetingInfoImpl _value, $Res Function(_$MeetingInfoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MeetingInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -471,7 +479,7 @@ class _$MeetingInfoImpl implements _MeetingInfo {
             const DeepCollectionEquality().equals(other._momList, _momList));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -492,7 +500,9 @@ class _$MeetingInfoImpl implements _MeetingInfo {
       const DeepCollectionEquality().hash(_attendeesList),
       const DeepCollectionEquality().hash(_momList));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MeetingInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MeetingInfoImplCopyWith<_$MeetingInfoImpl> get copyWith =>
@@ -585,8 +595,11 @@ abstract class _MeetingInfo implements MeetingInfo {
   @override
   @JsonKey(name: 'momList')
   List<MeetingMOM>? get momList;
+
+  /// Create a copy of MeetingInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MeetingInfoImplCopyWith<_$MeetingInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

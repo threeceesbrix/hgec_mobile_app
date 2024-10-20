@@ -24,33 +24,47 @@ class PasswordTextField extends StackedView<PasswordTextFieldModel> {
     PasswordTextFieldModel viewModel,
     Widget? child,
   ) {
-    return Container(
-      width: width,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        children: [
-          TextFormField(
-            controller: controller,
-            obscureText: viewModel.obscureText,
-            decoration: InputDecoration(
-              hintText: labelText,
-              border: InputBorder.none,
-              suffixIcon: IconButton(
-                icon: Icon(
-                  viewModel.obscureText
-                      ? Icons.visibility_off
-                      : Icons.visibility,
-                ),
-                onPressed: viewModel.switchObscure,
-              ),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          labelText,
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(color: Colors.white),
+        ),
+        Container(
+          width: width,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: Colors.black, width: 2),
+            borderRadius: BorderRadius.circular(10),
           ),
-        ],
-      ),
+          child: Column(
+            children: [
+              TextFormField(
+                textAlign: TextAlign.start,
+                controller: controller,
+                obscureText: viewModel.obscureText,
+                decoration: InputDecoration(
+                  hintText: labelText,
+                  border: InputBorder.none,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      viewModel.obscureText
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                    ),
+                    onPressed: viewModel.switchObscure,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 

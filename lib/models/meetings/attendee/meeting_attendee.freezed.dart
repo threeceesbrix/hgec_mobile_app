@@ -43,8 +43,12 @@ mixin _$MeetingAttendee {
   @JsonKey(name: 'created_user_id')
   int? get createdUserId => throw _privateConstructorUsedError;
 
+  /// Serializes this MeetingAttendee to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MeetingAttendee
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MeetingAttendeeCopyWith<MeetingAttendee> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -79,6 +83,8 @@ class _$MeetingAttendeeCopyWithImpl<$Res, $Val extends MeetingAttendee>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MeetingAttendee
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -173,6 +179,8 @@ class __$$MeetingAttendeeImplCopyWithImpl<$Res>
       _$MeetingAttendeeImpl _value, $Res Function(_$MeetingAttendeeImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MeetingAttendee
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -324,7 +332,7 @@ class _$MeetingAttendeeImpl implements _MeetingAttendee {
                 other.createdUserId == createdUserId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -340,7 +348,9 @@ class _$MeetingAttendeeImpl implements _MeetingAttendee {
       createdDate,
       createdUserId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MeetingAttendee
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MeetingAttendeeImplCopyWith<_$MeetingAttendeeImpl> get copyWith =>
@@ -406,8 +416,11 @@ abstract class _MeetingAttendee implements MeetingAttendee {
   @override
   @JsonKey(name: 'created_user_id')
   int? get createdUserId;
+
+  /// Create a copy of MeetingAttendee
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MeetingAttendeeImplCopyWith<_$MeetingAttendeeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -63,8 +63,12 @@ class StackedRouter extends _i1.RouterBase {
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
+      final args = data.getArgs<HomeViewArguments>(
+        orElse: () => const HomeViewArguments(),
+      );
       return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i2.HomeView(),
+        builder: (context) =>
+            _i2.HomeView(key: args.key, selectedIndex: args.selectedIndex),
         settings: data,
       );
     },
@@ -105,6 +109,33 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
+class HomeViewArguments {
+  const HomeViewArguments({
+    this.key,
+    this.selectedIndex,
+  });
+
+  final _i7.Key? key;
+
+  final int? selectedIndex;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "selectedIndex": "$selectedIndex"}';
+  }
+
+  @override
+  bool operator ==(covariant HomeViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.selectedIndex == selectedIndex;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ selectedIndex.hashCode;
+  }
+}
+
 class MeetingsAddViewArguments {
   const MeetingsAddViewArguments({
     this.key,
@@ -133,14 +164,17 @@ class MeetingsAddViewArguments {
 }
 
 extension NavigatorStateExtension on _i9.NavigationService {
-  Future<dynamic> navigateToHomeView([
+  Future<dynamic> navigateToHomeView({
+    _i7.Key? key,
+    int? selectedIndex,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.homeView,
+        arguments: HomeViewArguments(key: key, selectedIndex: selectedIndex),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -206,14 +240,17 @@ extension NavigatorStateExtension on _i9.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithHomeView([
+  Future<dynamic> replaceWithHomeView({
+    _i7.Key? key,
+    int? selectedIndex,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.homeView,
+        arguments: HomeViewArguments(key: key, selectedIndex: selectedIndex),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

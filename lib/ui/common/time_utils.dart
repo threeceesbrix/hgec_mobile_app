@@ -10,3 +10,24 @@ TimeOfDay? timeFromJson(String time) {
 String timeToJson(TimeOfDay? time) {
   return '${time!.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:00';
 }
+
+extension TimeOfDayExtension on TimeOfDay {
+  TimeOfDay addMinutes(int minutes) {
+    if (minutes == 0) {
+      return this;
+    }
+
+    final totalMinutes = hour * 60 + minute;
+
+    final newTotalMinutes = (totalMinutes + minutes + 1440) % 1440;
+
+    final newHour = newTotalMinutes ~/ 60;
+    final newMinute = newTotalMinutes % 60;
+
+    return TimeOfDay(hour: newHour, minute: newMinute);
+  }
+}
+
+String formatTime(TimeOfDay? timeOfDay) {
+  return '${timeOfDay!.hourOfPeriod}:${timeOfDay.minute.toString().padLeft(2, '0')} ${timeOfDay.period == DayPeriod.am ? 'AM' : 'PM'}';
+}

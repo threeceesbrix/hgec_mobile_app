@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hgec_mobile_app/global.dart';
+
 import 'package:hgec_mobile_app/ui/common/ui_helpers.dart';
 import 'package:hgec_mobile_app/ui/common/validators.dart';
 import 'package:hgec_mobile_app/ui/views/login/login_view.form.dart';
@@ -34,11 +34,15 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
         automaticallyImplyLeading: false,
       ),
       body: ResponsiveWidget(
-          mobileView: const SizedBox(),
-          tabletView: TabletView(
-              viewModel: viewModel,
-              userNameController: userNameController,
-              passwordController: passwordController)),
+        mobileView: TabletView(
+            viewModel: viewModel,
+            userNameController: userNameController,
+            passwordController: passwordController),
+        tabletView: TabletView(
+            viewModel: viewModel,
+            userNameController: userNameController,
+            passwordController: passwordController),
+      ),
     );
   }
 
@@ -103,10 +107,11 @@ class TabletView extends StatelessWidget {
                       child: Image.asset('assets/hge_white.png'),
                     ),
                     CustomTextField(
-                      labelText: Global.baseURL,
+                      labelText: "Username",
                       controller: userNameController,
                       width: screenWidthFraction(dividedBy: 3, context),
                       required: true,
+                      labelColor: Colors.white,
                     ),
                     Visibility(
                       visible: viewModel.hasUserNameValidationMessage,

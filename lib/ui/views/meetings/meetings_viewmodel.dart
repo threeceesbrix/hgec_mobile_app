@@ -36,7 +36,6 @@ class MeetingsViewModel extends BaseViewModel {
       setBusy(false);
     } catch (error) {
       setBusy(false);
-      print(error);
     }
   }
 

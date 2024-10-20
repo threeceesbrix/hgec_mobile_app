@@ -5,7 +5,8 @@ import 'package:stacked/stacked.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({Key? key}) : super(key: key);
+  final int? selectedIndex;
+  const HomeView({Key? key, this.selectedIndex}) : super(key: key);
 
   @override
   Widget builder(
@@ -30,6 +31,7 @@ class HomeView extends StackedView<HomeViewModel> {
 
     return DefaultTabController(
       key: key,
+      initialIndex: selectedIndex ?? 0,
       length: 3,
       child: Builder(
         builder: (context) {

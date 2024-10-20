@@ -45,8 +45,12 @@ mixin _$MeetingMOM {
   @JsonKey(name: 'modified_user_id')
   int? get modifiedUserId => throw _privateConstructorUsedError;
 
+  /// Serializes this MeetingMOM to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MeetingMOM
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MeetingMOMCopyWith<MeetingMOM> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -82,6 +86,8 @@ class _$MeetingMOMCopyWithImpl<$Res, $Val extends MeetingMOM>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MeetingMOM
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -182,6 +188,8 @@ class __$$MeetingMOMImplCopyWithImpl<$Res>
       _$MeetingMOMImpl _value, $Res Function(_$MeetingMOMImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MeetingMOM
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -341,7 +349,7 @@ class _$MeetingMOMImpl implements _MeetingMOM {
                 other.modifiedUserId == modifiedUserId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -358,7 +366,9 @@ class _$MeetingMOMImpl implements _MeetingMOM {
       modifiedDate,
       modifiedUserId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MeetingMOM
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MeetingMOMImplCopyWith<_$MeetingMOMImpl> get copyWith =>
@@ -427,8 +437,11 @@ abstract class _MeetingMOM implements MeetingMOM {
   @override
   @JsonKey(name: 'modified_user_id')
   int? get modifiedUserId;
+
+  /// Create a copy of MeetingMOM
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MeetingMOMImplCopyWith<_$MeetingMOMImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
